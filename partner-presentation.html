@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Envision — Partner Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #003087;
+  --blue-dark: #001852;
+  --blue-mid: #004bb5;
+  --green: #78BE21;
+  --green-dim: rgba(120,190,33,0.15);
+  --text-light: #f0f4ff;
+  --text-muted: rgba(240,244,255,0.52);
+  --bg-body: #000d2e;
+  --surface-card: rgba(0,24,82,0.52);
+  --border-dark: rgba(255,255,255,0.08);
+  --amber: #f59e0b;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  background: var(--bg-body);
+  color: var(--text-light);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ========== PRINT STYLESHEET ========== */
+@media print {
+  body { background: #fff; color: #000; }
+  nav, .scroll-hint, .p-filter-row, .p-expand { display: none !important; }
+  section, .strategic-break, .close-section { padding: 2rem 1rem; page-break-inside: avoid; }
+  .hero { min-height: auto; padding: 3rem 1rem; background: #fff; }
+  .hero-bg, .hero-overlay, .hero-grid, .hero-grain { display: none; }
+  h1, h2, h3, .hero-sub, .section-sub, p { color: #000 !important; }
+  .hero-content, .section-inner, .close-inner, .sb-inner { max-width: 100%; padding: 0; }
+  .pursuit-detail { display: block !important; }
+  .phase-rail, .cb-grid, .cap-grid { display: block; }
+  .phase-card, .cb-item, .cap-card { break-inside: avoid; margin-bottom: 1rem; border: 1px solid #ccc; }
+}
+
+/* ========== NAV ========== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.1rem 3rem;
+  background: rgba(0,13,46,0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-dark);
+}
+.logo { font-weight: 800; font-size: 0.95rem; letter-spacing: 0.16em; text-transform: uppercase; color: #fff; }
+.logo span { color: var(--green); }
+nav ul { list-style: none; display: flex; gap: 2.2rem; }
+nav ul a { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+nav ul a:hover { color: #fff; }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.nav-meta { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.32); }
+.nav-meta span { color: var(--green); }
+
+@media (max-width: 860px) {
+  nav { padding: 1rem 1.5rem; }
+  nav ul { display: none; }
+}
+
+/* ========== HERO ========== */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; text-align: center;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-color: var(--blue-dark);
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba(0,75,181,0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 70%, rgba(120,190,33,0.12) 0%, transparent 55%),
+    linear-gradient(135deg, #001030 0%, #001852 45%, #000d2e 100%);
+  background-size: cover; background-position: center;
+  transform: scale(1.05);
+  animation: slowZoom 20s ease-out forwards;
+}
+@keyframes slowZoom { from { transform: scale(1.05); } to { transform: scale(1.0); } }
+
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0,13,46,0.45) 70%, rgba(0,13,46,0.92) 100%);
+}
+
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.07;
+  background-image:
+    linear-gradient(rgba(120,190,33,0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120,190,33,0.4) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+}
+
+.hero-grain {
+  position: absolute; inset: 0; opacity: 0.04; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1020px; padding: 5rem 2rem 0; width: 100%;
+}
+.hero-label {
+  display: inline-flex; align-items: center; gap: 0.85rem;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 1.75rem;
+}
+.hero-label::before, .hero-label::after {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--green); opacity: 0.7;
+}
+h1 {
+  font-size: clamp(2.4rem, 5.8vw, 4.8rem); font-weight: 800;
+  line-height: 1.04; letter-spacing: -0.028em; margin-bottom: 1.75rem;
+  color: #fff;
+}
+h1 em { font-style: normal; color: var(--green); }
+.hero-sub {
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem); color: rgba(240,244,255,0.72);
+  line-height: 1.7; max-width: 680px; margin: 0 auto 3rem; font-weight: 400;
+}
+.hero-meta-row {
+  display: flex; justify-content: center; gap: 3rem; margin-top: 2.5rem;
+  padding-top: 2.25rem; border-top: 1px solid rgba(255,255,255,0.1);
+  flex-wrap: wrap;
+}
+.hero-meta-item { text-align: left; }
+.hero-meta-k {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 0.4rem;
+}
+.hero-meta-v { font-size: 0.85rem; font-weight: 600; color: #fff; letter-spacing: 0.01em; }
+.hero-meta-v span { color: var(--green); }
+
+.scroll-hint {
+  position: absolute; bottom: 2.2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+  color: rgba(255,255,255,0.38); font-size: 0.58rem; letter-spacing: 0.24em;
+  text-transform: uppercase; font-weight: 700; z-index: 2;
+}
+.scroll-line { width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(120,190,33,0.6), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+/* Entrance animations */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.hero-label   { animation: fadeUp 0.6s 0.25s ease both; }
+h1            { animation: fadeUp 0.75s 0.42s ease both; }
+.hero-sub     { animation: fadeUp 0.7s 0.58s ease both; }
+.hero-meta-row { animation: fadeUp 0.7s 0.72s ease both; }
+
+/* ========== SECTION SCAFFOLDING ========== */
+section { padding: 7rem 3rem; position: relative; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+
+.section-eyebrow {
+  font-size: 0.66rem; font-weight: 700; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 1.25rem;
+  display: inline-flex; align-items: center; gap: 0.75rem;
+}
+.section-eyebrow::before {
+  content: ''; display: block; width: 24px; height: 1px; background: var(--green);
+}
+
+h2 {
+  font-size: clamp(1.9rem, 3.5vw, 2.9rem);
+  font-weight: 800; line-height: 1.1; letter-spacing: -0.022em;
+  margin-bottom: 1.25rem; max-width: 920px; color: #fff;
+}
+h2 em { font-style: normal; color: var(--green); }
+.section-sub {
+  font-size: 1rem; color: var(--text-muted); line-height: 1.75;
+  max-width: 720px; margin-bottom: 3.5rem;
+}
+
+@media (max-width: 860px) {
+  section { padding: 4.5rem 1.5rem; }
+  h2 { font-size: 2rem; }
+}
+
+/* ========== STATS BAND (At a Glance) ========== */
+.at-a-glance {
+  background: var(--bg-body);
+  padding: 5.5rem 3rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  position: relative;
+}
+.at-a-glance::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 80px; height: 2px; background: var(--green);
+}
+.aag-inner { max-width: 1280px; margin: 0 auto; }
+.aag-lead {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 3rem;
+  text-align: center;
+}
+.aag-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+  border-left: 1px solid rgba(255,255,255,0.08);
+}
+.aag-cell {
+  padding: 0 1.75rem;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.aag-n {
+  font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 800;
+  color: #fff; letter-spacing: -0.03em; line-height: 1;
+  margin-bottom: 0.6rem; font-variant-numeric: tabular-nums;
+}
+.aag-n span { color: var(--green); }
+.aag-n.small { font-size: clamp(1.3rem, 2.2vw, 1.8rem); }
+.aag-l {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(255,255,255,0.42);
+  line-height: 1.5;
+}
+
+@media (max-width: 1100px) {
+  .aag-grid { grid-template-columns: repeat(3, 1fr); row-gap: 2.5rem; }
+  .aag-cell { padding: 0 1.25rem; }
+}
+@media (max-width: 640px) {
+  .aag-grid { grid-template-columns: repeat(2, 1fr); }
+  .at-a-glance { padding: 3.5rem 1.5rem; }
+}
+
+/* ========== IDENTITY ========== */
+.identity {
+  background: linear-gradient(180deg, var(--bg-body) 0%, #000815 100%);
+}
+.identity-grid {
+  display: grid; grid-template-columns: 1.15fr 1fr; gap: 4rem; align-items: start;
+}
+.identity-points { display: flex; flex-direction: column; gap: 2rem; }
+.ipoint {
+  display: grid; grid-template-columns: auto 1fr; gap: 1.25rem;
+  padding-bottom: 1.75rem; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.ipoint:last-child { border-bottom: none; padding-bottom: 0; }
+.ipoint-num {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+  color: var(--green); font-variant-numeric: tabular-nums;
+  padding-top: 0.25rem;
+}
+.ipoint-head {
+  font-size: 1.05rem; font-weight: 700; color: #fff;
+  margin-bottom: 0.5rem; letter-spacing: -0.01em;
+}
+.ipoint-body {
+  font-size: 0.92rem; color: rgba(240,244,255,0.65); line-height: 1.7;
+}
+
+.campus-cards { display: flex; flex-direction: column; gap: 1.25rem; }
+.campus-card {
+  background: rgba(0,24,82,0.3);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1.75rem 1.75rem 1.5rem;
+  position: relative; overflow: hidden;
+  transition: border-color 0.2s, background 0.2s;
+}
+.campus-card:hover { border-color: rgba(120,190,33,0.25); background: rgba(0,24,82,0.45); }
+.campus-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%;
+  background: var(--green); opacity: 0.7;
+}
+.campus-tag {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 0.7rem;
+}
+.campus-name {
+  font-size: 1.15rem; font-weight: 700; color: #fff;
+  margin-bottom: 0.5rem; letter-spacing: -0.01em;
+}
+.campus-addr {
+  font-size: 0.82rem; color: rgba(240,244,255,0.55); line-height: 1.65;
+  font-variant-numeric: tabular-nums;
+}
+.campus-addr strong { color: #fff; font-weight: 600; }
+
+@media (max-width: 860px) {
+  .identity-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+/* ========== CAPABILITIES (4-card validated set) ========== */
+.capabilities {
+  background: linear-gradient(180deg, #000815 0%, #000d2e 100%);
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.cap-grid {
+  display: grid; grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 2px; background: rgba(255,255,255,0.04);
+  grid-auto-rows: minmax(260px, auto);
+}
+.cap-card {
+  background: #000d2e; padding: 2.5rem 2rem;
+  position: relative; overflow: hidden; transition: background 0.2s;
+  display: flex; flex-direction: column;
+}
+.cap-card:hover { background: #001030; }
+.cap-card.featured {
+  background: linear-gradient(140deg, #001852 0%, #002878 100%);
+  border-left: 2px solid var(--green);
+  grid-row: span 2;
+}
+.cap-card.wide { grid-column: span 2; }
+
+.cap-n {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.cap-n::before { content: ''; display: block; width: 16px; height: 1px; background: var(--green); }
+.cap-card h3 {
+  font-size: 1.2rem; font-weight: 700; color: #fff;
+  margin-bottom: 0.9rem; letter-spacing: -0.01em; line-height: 1.25;
+}
+.cap-card.featured h3 { font-size: 1.5rem; }
+.cap-card p {
+  font-size: 0.88rem; color: rgba(240,244,255,0.63); line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+.cap-detail-list {
+  list-style: none; margin-top: auto; padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.cap-detail-list li {
+  font-size: 0.72rem; color: rgba(240,244,255,0.55); line-height: 1.55;
+  padding: 0.35rem 0 0.35rem 1.2rem; position: relative;
+}
+.cap-detail-list li::before {
+  content: ''; position: absolute; left: 0; top: 0.85rem;
+  width: 7px; height: 1px; background: var(--green);
+}
+.cap-tag-row {
+  display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem;
+}
+.cap-tag {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; padding: 0.4rem 0.7rem;
+  border: 1px solid rgba(120,190,33,0.4); color: var(--green);
+  border-radius: 2px; background: rgba(120,190,33,0.08);
+}
+
+@media (max-width: 860px) {
+  .cap-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .cap-card.featured { grid-row: auto; }
+  .cap-card.wide { grid-column: span 1; }
+}
+
+/* ========== FEDERAL CHANNEL PROOF (replaces weak acronym band) ========== */
+.fed-proof {
+  background: var(--bg-body);
+  padding: 6rem 3rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.fp-inner { max-width: 1280px; margin: 0 auto; }
+.fp-head-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+  margin-bottom: 3.5rem; align-items: end;
+}
+.fp-sub {
+  font-size: 0.95rem; color: rgba(240,244,255,0.6); line-height: 1.75;
+}
+
+.fp-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px; background: rgba(255,255,255,0.05);
+}
+.fp-card {
+  background: #000d2e; padding: 2.25rem 2rem;
+  position: relative;
+}
+.fp-card.primary {
+  background: linear-gradient(140deg, #001852 0%, #002878 100%);
+}
+.fp-tag {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 0.75rem;
+}
+.fp-title {
+  font-size: 1.15rem; font-weight: 700; color: #fff;
+  margin-bottom: 0.6rem; letter-spacing: -0.005em; line-height: 1.3;
+}
+.fp-body {
+  font-size: 0.85rem; color: rgba(240,244,255,0.6); line-height: 1.65;
+  margin-bottom: 1rem;
+}
+.fp-stat {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--green);
+  padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+@media (max-width: 860px) {
+  .fp-head-row { grid-template-columns: 1fr; gap: 1.5rem; }
+  .fp-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== PARTNERSHIP MODEL (reworked off 4-column grid) ========== */
+.partnership {
+  background: linear-gradient(180deg, var(--bg-body) 0%, #000815 100%);
+  position: relative;
+}
+.model-flow {
+  display: grid; grid-template-columns: 1fr;
+  gap: 2px; background: rgba(255,255,255,0.05);
+  margin-top: 1rem;
+}
+.model-step {
+  background: #000d2e;
+  display: grid; grid-template-columns: 180px 1fr 2fr;
+  gap: 2.5rem;
+  padding: 2.25rem 2rem;
+  align-items: start;
+  transition: background 0.2s;
+  position: relative;
+}
+.model-step:hover { background: #001030; }
+.model-step::before {
+  content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 100%;
+  background: var(--green); opacity: 0; transition: opacity 0.2s;
+}
+.model-step:hover::before { opacity: 0.7; }
+
+.ms-left {
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.ms-num {
+  font-size: 2rem; font-weight: 800; color: var(--green);
+  letter-spacing: -0.04em; line-height: 1;
+}
+.ms-phase {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
+}
+.ms-mid h4 {
+  font-size: 1.15rem; font-weight: 700; color: #fff;
+  letter-spacing: -0.01em; line-height: 1.3;
+}
+.ms-right p {
+  font-size: 0.88rem; color: rgba(240,244,255,0.65);
+  line-height: 1.7;
+}
+
+@media (max-width: 860px) {
+  .model-step { grid-template-columns: 1fr; gap: 1rem; padding: 1.75rem 1.5rem; }
+}
+
+/* ========== STRATEGIC BREAK DIVIDER ========== */
+.strategic-break {
+  position: relative;
+  padding: 9rem 3rem;
+  background:
+    linear-gradient(90deg, rgba(0,13,46,0.95) 0%, rgba(0,24,82,0.7) 50%, rgba(0,13,46,0.95) 100%),
+    linear-gradient(180deg, #000815 0%, #001030 100%);
+  overflow: hidden;
+  text-align: center;
+}
+.strategic-break::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(120,190,33,0.5), transparent);
+}
+.strategic-break::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(120,190,33,0.5), transparent);
+}
+.sb-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 2; }
+.sb-label {
+  font-size: 0.66rem; font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 1.75rem;
+  display: inline-flex; align-items: center; gap: 1rem;
+}
+.sb-label::before, .sb-label::after {
+  content: ''; display: block; width: 36px; height: 1px; background: var(--green); opacity: 0.7;
+}
+.sb-head {
+  font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800;
+  color: #fff; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1.5rem;
+}
+.sb-head em { font-style: normal; color: var(--green); }
+.sb-sub {
+  font-size: 0.95rem; color: rgba(240,244,255,0.6);
+  line-height: 1.75; max-width: 620px; margin: 0 auto;
+}
+
+/* ========== AKUA / WEDGE SECTION ========== */
+.wedge { background: #000d2e; }
+.wedge-grid {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: start;
+}
+.wedge-points { display: flex; flex-direction: column; gap: 1rem; }
+.wedge-point {
+  background: rgba(0,24,82,0.28);
+  border: 1px solid rgba(255,255,255,0.07);
+  padding: 1.75rem;
+  position: relative; transition: background 0.2s, border-color 0.2s;
+}
+.wedge-point:hover { border-color: rgba(120,190,33,0.3); background: rgba(0,24,82,0.42); }
+.wp-tag {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 0.7rem;
+}
+.wp-head {
+  font-size: 1.05rem; font-weight: 700; color: #fff;
+  margin-bottom: 0.6rem; letter-spacing: -0.01em;
+}
+.wp-body {
+  font-size: 0.88rem; color: rgba(240,244,255,0.62); line-height: 1.65;
+}
+
+@media (max-width: 860px) {
+  .wedge-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ========== TLS vs GSA ROUTING ========== */
+.routing {
+  background: linear-gradient(180deg, #000d2e 0%, #000815 100%);
+}
+.routing-compare {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  background: rgba(255,255,255,0.05); margin-bottom: 2.5rem;
+}
+.rc-col {
+  background: #000d2e; padding: 2.25rem;
+  position: relative; min-height: 360px;
+}
+.rc-col.primary {
+  background: linear-gradient(140deg, #001852 0%, #002878 100%);
+  border-top: 2px solid var(--green);
+}
+.rc-col.secondary {
+  background: #000d2e;
+  border-top: 2px solid rgba(255,255,255,0.2);
+}
+.rc-lane {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.rc-col.primary .rc-lane { color: var(--green); }
+.rc-col.secondary .rc-lane { color: rgba(255,255,255,0.45); }
+.rc-title {
+  font-size: 1.35rem; font-weight: 700; color: #fff;
+  margin-bottom: 1.5rem; letter-spacing: -0.01em;
+}
+.rc-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+.rc-list li {
+  font-size: 0.86rem; color: rgba(240,244,255,0.7); line-height: 1.6;
+  padding-left: 1.5rem; position: relative;
+}
+.rc-list li::before {
+  content: ''; position: absolute; left: 0; top: 0.55rem;
+  width: 8px; height: 1px; background: var(--green);
+}
+.rc-list li strong {
+  color: #fff; font-weight: 600; display: block; margin-bottom: 0.25rem;
+  font-size: 0.82rem; letter-spacing: 0.02em;
+}
+
+.route-rules {
+  background: rgba(0,24,82,0.2);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem 2.25rem;
+}
+.rr-head {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 1.25rem;
+}
+.rr-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 2.5rem;
+}
+.rr-item { display: flex; gap: 1rem; align-items: start; }
+.rr-chip {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; padding: 0.4rem 0.7rem;
+  border-radius: 2px; flex-shrink: 0; white-space: nowrap;
+}
+.rr-chip.tls { background: rgba(120,190,33,0.15); color: var(--green); border: 1px solid rgba(120,190,33,0.3); }
+.rr-chip.gsa { background: rgba(0,75,181,0.25); color: #6BA6E8; border: 1px solid rgba(107,166,232,0.3); }
+.rr-chip.both { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+.rr-text { font-size: 0.84rem; color: rgba(240,244,255,0.7); line-height: 1.55; }
+
+@media (max-width: 860px) {
+  .routing-compare { grid-template-columns: 1fr; }
+  .rr-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== PHASE TIMELINE ========== */
+.phases { background: #000d2e; }
+.phase-rail {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 2px; position: relative; margin-top: 2rem;
+  background: rgba(255,255,255,0.05);
+}
+.phase-card {
+  background: #000d2e; padding: 2rem 1.5rem 2.25rem;
+  position: relative; min-height: 340px;
+  display: flex; flex-direction: column;
+}
+.phase-card.near { background: linear-gradient(160deg, #001852 0%, #002878 100%); border-top: 3px solid var(--green); }
+.phase-card.next { background: #001030; border-top: 3px solid rgba(120,190,33,0.55); }
+.phase-card.mid  { background: #000d2e; border-top: 3px solid rgba(120,190,33,0.35); }
+.phase-card.far  { background: #000d2e; border-top: 3px solid rgba(120,190,33,0.18); }
+.phase-card.moat { background: #000d2e; border-top: 3px solid rgba(245,158,11,0.7); }
+
+.phase-n {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem;
+}
+.phase-card.moat .phase-n { color: var(--amber); }
+.phase-head {
+  font-size: 1rem; font-weight: 700; color: #fff;
+  margin-bottom: 0.75rem; letter-spacing: -0.005em; line-height: 1.25;
+}
+.phase-horizon {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(240,244,255,0.4);
+  margin-bottom: 1.25rem; padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.phase-body {
+  font-size: 0.8rem; color: rgba(240,244,255,0.62);
+  line-height: 1.6; flex-grow: 1;
+}
+.phase-out {
+  margin-top: 1rem; padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.72rem; font-weight: 600; color: var(--green); line-height: 1.45;
+}
+.phase-card.moat .phase-out { color: var(--amber); }
+
+.phase-note {
+  margin-top: 2.5rem;
+  background: rgba(245,158,11,0.06);
+  border-left: 2px solid var(--amber);
+  padding: 1.25rem 1.75rem;
+  font-size: 0.85rem; color: rgba(240,244,255,0.75); line-height: 1.65;
+}
+.phase-note strong { color: var(--amber); font-weight: 700; }
+
+@media (max-width: 1100px) {
+  .phase-rail { grid-template-columns: 1fr; gap: 2px; }
+  .phase-card { min-height: auto; }
+}
+
+/* ========== CAPABILITY ALIGNMENT BAND (repositioned, more weight) ========== */
+.cap-align {
+  background: linear-gradient(180deg, #000d2e 0%, #000815 100%);
+}
+.cb-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+  background: rgba(255,255,255,0.05);
+  margin-top: 1rem;
+}
+.cb-item {
+  padding: 1.75rem 1.5rem;
+  background: #000d2e;
+  transition: background 0.2s;
+  display: flex; flex-direction: column;
+  min-height: 180px;
+}
+.cb-item:hover { background: #001030; }
+.cb-item.featured {
+  background: linear-gradient(140deg, #001852 0%, #002878 100%);
+  border-top: 2px solid var(--green);
+}
+.cb-lane-tag {
+  font-size: 0.56rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 0.75rem;
+}
+.cb-lane {
+  font-size: 0.95rem; font-weight: 700; color: #fff;
+  margin-bottom: 0.6rem; letter-spacing: -0.005em; line-height: 1.3;
+}
+.cb-agencies {
+  font-size: 0.72rem; color: rgba(240,244,255,0.55); line-height: 1.55;
+  margin-bottom: auto;
+}
+.cb-trl {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--green); margin-top: 1rem;
+  padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+@media (max-width: 1100px) {
+  .cb-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .cb-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== FUNDED R&D PURSUIT MAP ========== */
+.pursuits {
+  background: linear-gradient(180deg, #000815 0%, #000d2e 100%);
+}
+.p-filter-row {
+  display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap;
+}
+.p-filter {
+  background: transparent; color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 0.5rem 1.1rem; font-family: inherit; font-size: 0.64rem;
+  font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  cursor: pointer; border-radius: 2px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.p-filter:hover { color: #fff; border-color: rgba(255,255,255,0.35); }
+.p-filter.active {
+  background: var(--green); color: var(--blue-dark); border-color: var(--green);
+}
+
+.pursuit-list {
+  display: flex; flex-direction: column; gap: 2px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.pursuit-row {
+  background: #000d2e;
+  display: grid;
+  grid-template-columns: 56px 1fr 140px 150px 90px 130px 24px;
+  gap: 1.5rem; padding: 1.4rem 1.75rem;
+  align-items: center;
+  transition: background 0.15s;
+  cursor: pointer;
+  position: relative;
+}
+.pursuit-row:hover { background: #001030; }
+.pursuit-row.pursue { border-left: 3px solid var(--green); }
+.pursuit-row.team { border-left: 3px solid rgba(120,190,33,0.5); }
+.pursuit-row.monitor { border-left: 3px solid rgba(255,255,255,0.18); }
+
+.p-rank {
+  font-size: 1.5rem; font-weight: 800; color: #fff;
+  font-variant-numeric: tabular-nums; line-height: 1;
+}
+.p-rank span {
+  display: block; font-size: 0.54rem; font-weight: 700;
+  letter-spacing: 0.18em; color: var(--green);
+  margin-top: 0.4rem; text-transform: uppercase;
+}
+.p-name {
+  font-size: 0.95rem; font-weight: 700; color: #fff;
+  letter-spacing: -0.005em; margin-bottom: 0.3rem; line-height: 1.3;
+}
+.p-agency {
+  font-size: 0.72rem; color: rgba(240,244,255,0.5);
+  letter-spacing: 0.02em;
+}
+.p-col-label {
+  font-size: 0.54rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(255,255,255,0.32);
+  margin-bottom: 0.4rem;
+}
+.p-col-val {
+  font-size: 0.78rem; font-weight: 600; color: rgba(240,244,255,0.85);
+  line-height: 1.35;
+}
+.p-score {
+  font-size: 1.2rem; font-weight: 800; color: var(--green);
+  letter-spacing: -0.02em;
+}
+.p-chip {
+  display: inline-block; padding: 0.35rem 0.7rem;
+  font-size: 0.56rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; border-radius: 2px; white-space: nowrap;
+}
+.p-chip.pursue { background: rgba(120,190,33,0.18); color: var(--green); border: 1px solid rgba(120,190,33,0.4); }
+.p-chip.team { background: rgba(0,75,181,0.25); color: #6BA6E8; border: 1px solid rgba(107,166,232,0.3); }
+.p-chip.monitor { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15); }
+
+.p-expand {
+  color: rgba(255,255,255,0.3); font-size: 0.7rem;
+  transition: transform 0.2s, color 0.2s;
+  text-align: center;
+}
+.pursuit-row:hover .p-expand { color: var(--green); }
+.pursuit-row.open .p-expand { transform: rotate(180deg); }
+
+.pursuit-detail {
+  display: none;
+  padding: 0 1.75rem 1.75rem 4rem;
+  background: #000d2e;
+  border-left: 3px solid transparent;
+}
+.pursuit-row.open + .pursuit-detail {
+  display: block;
+  border-left-color: var(--green);
+}
+
+.pd-head {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 0.6rem;
+}
+.pd-body {
+  font-size: 0.88rem; color: rgba(240,244,255,0.7); line-height: 1.7;
+  max-width: 880px;
+}
+.pd-body + .pd-head { margin-top: 1.25rem; }
+.pd-timing {
+  display: inline-block; margin-top: 1rem; padding: 0.4rem 0.8rem;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
+  color: rgba(240,244,255,0.7); background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 2px;
+}
+
+.pursuits-legend {
+  margin-top: 2.5rem; padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  font-size: 0.75rem; color: rgba(240,244,255,0.55);
+}
+.pursuits-legend strong { color: #fff; font-weight: 600; }
+
+@media (max-width: 1100px) {
+  .pursuit-row {
+    grid-template-columns: 48px 1fr 110px 80px 24px;
+    gap: 1rem;
+  }
+  .pursuit-row .p-col-hide-tablet { display: none; }
+}
+@media (max-width: 760px) {
+  .pursuit-row {
+    grid-template-columns: 1fr; gap: 1rem; padding: 1.25rem;
+  }
+  .p-col { display: flex; justify-content: space-between; align-items: baseline; }
+  .p-col-label { margin-bottom: 0; }
+  .pursuit-row .p-expand { text-align: right; }
+}
+
+/* ========== CLOSE / CTA ========== */
+.close-section {
+  background:
+    linear-gradient(180deg, rgba(0,13,46,0.75) 0%, rgba(0,8,21,0.95) 100%),
+    linear-gradient(135deg, #001030 0%, #001852 50%, #000d2e 100%);
+  padding: 7rem 3rem; text-align: center;
+  border-top: 1px solid rgba(120,190,33,0.15);
+  position: relative; overflow: hidden;
+}
+.close-section::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 120px; height: 1px; background: var(--green);
+}
+.close-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 2; }
+.close-head {
+  font-size: clamp(1.75rem, 3vw, 2.4rem); font-weight: 800;
+  color: #fff; letter-spacing: -0.02em; line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+.close-head em { font-style: normal; color: var(--green); }
+.close-sub {
+  font-size: 1rem; color: rgba(240,244,255,0.65);
+  line-height: 1.75; margin-bottom: 2.5rem;
+  max-width: 640px; margin-left: auto; margin-right: auto;
+}
+.close-contacts {
+  margin-top: 3rem; padding-top: 2.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  text-align: left; max-width: 640px; margin-left: auto; margin-right: auto;
+}
+.cc-card {
+  padding: 1.5rem;
+  background: rgba(0,24,82,0.3);
+  border-left: 2px solid var(--green);
+}
+.cc-role {
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 0.6rem;
+}
+.cc-name {
+  font-size: 1rem; font-weight: 700; color: #fff;
+  margin-bottom: 0.35rem; letter-spacing: -0.005em;
+}
+.cc-title {
+  font-size: 0.78rem; color: rgba(240,244,255,0.55);
+  line-height: 1.5; margin-bottom: 0.75rem;
+}
+.cc-contact {
+  font-size: 0.76rem; color: rgba(240,244,255,0.75);
+  line-height: 1.65; font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 640px) {
+  .close-contacts { grid-template-columns: 1fr; }
+}
+
+/* ========== FOOTER ========== */
+footer {
+  background: #000610; padding: 2.5rem 3rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.foot-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+.foot-logo { font-weight: 800; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.foot-logo span { color: var(--green); }
+.foot-meta { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav>
+  <div class="logo">Envision<span>.</span></div>
+  <ul>
+    <li><a href="#capabilities">Capabilities</a></li>
+    <li><a href="#federal">Federal Channel</a></li>
+    <li><a href="#partnership">Partnership</a></li>
+    <li><a href="#strategy">Strategy</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-meta">Working Draft <span>&bull;</span> Confidential</div>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-grain"></div>
+
+  <div class="hero-content">
+    <div class="hero-label">Built to Partner</div>
+    <h1>U.S. manufacturing,<br>configuration depth,<br>and <em>a federal channel.</em></h1>
+    <p class="hero-sub">Envision is an enterprise-grade American manufacturer with 90+ years of production heritage, Berry and TAA compliant supply chain, and a direct federal acquisition lane through DLA AbilityOne Tailored Logistics Support. We exist to make our partners faster, more compliant, and more competitive in federal markets.</p>
+
+    <div class="hero-meta-row">
+      <div class="hero-meta-item">
+        <div class="hero-meta-k">Prepared For</div>
+        <div class="hero-meta-v">Partner Review &mdash; <span>Confidential</span></div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-k">Document Type</div>
+        <div class="hero-meta-v">Working Draft</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-k">Date</div>
+        <div class="hero-meta-v">April 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ========== AT A GLANCE ========== -->
+<section class="at-a-glance">
+  <div class="aag-inner">
+    <div class="aag-lead">Envision At a Glance</div>
+    <div class="aag-grid">
+      <div class="aag-cell">
+        <div class="aag-n">90<span>+</span></div>
+        <div class="aag-l">Years<br>Manufacturing</div>
+      </div>
+      <div class="aag-cell">
+        <div class="aag-n">410<span>K</span></div>
+        <div class="aag-l">Sq Ft Across<br>Dallas &amp; Wichita</div>
+      </div>
+      <div class="aag-cell">
+        <div class="aag-n">447</div>
+        <div class="aag-l">Skilled<br>Employees</div>
+      </div>
+      <div class="aag-cell">
+        <div class="aag-n">$40<span>M</span></div>
+        <div class="aag-l">Recent Facility<br>Investment</div>
+      </div>
+      <div class="aag-cell">
+        <div class="aag-n small">Berry<br>&amp; TAA</div>
+        <div class="aag-l">Compliant<br>Supply Chain</div>
+      </div>
+      <div class="aag-cell">
+        <div class="aag-n small">ISO<br>9001:2015</div>
+        <div class="aag-l">DCMA Alternate<br>Release Authorized</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WHO WE ARE ========== -->
+<section class="identity" id="about">
+  <div class="section-inner">
+    <div class="section-eyebrow">Who We Are</div>
+    <h2>A federal-credible manufacturer with <em>a purpose-built workforce.</em></h2>
+    <p class="section-sub">Envision operates two manufacturing campuses, an innovation and prototyping laboratory, and a direct DLA Tailored Logistics Support lane. We employ a workforce of people who are blind or low vision as a business capability that creates federal advantages our partners can use.</p>
+
+    <div class="identity-grid">
+      <div class="identity-points">
+        <div class="ipoint">
+          <div class="ipoint-num">01</div>
+          <div>
+            <div class="ipoint-head">Commercial operator, mission-aligned.</div>
+            <div class="ipoint-body">We compete on manufacturing quality, on-time delivery, and pricing. Our mission impact is a byproduct of commercial performance, not a substitute for it. This is how every partner should expect the relationship to run.</div>
+          </div>
+        </div>
+        <div class="ipoint">
+          <div class="ipoint-num">02</div>
+          <div>
+            <div class="ipoint-head">Direct federal acquisition access.</div>
+            <div class="ipoint-body">Envision maintains a DLA AbilityOne Base Supply Center and Tailored Logistics Support lane, giving our partners an alternate compliant path into DoD and federal buyers when GSA Schedule is not the natural fit for a specific opportunity.</div>
+          </div>
+        </div>
+        <div class="ipoint">
+          <div class="ipoint-num">03</div>
+          <div>
+            <div class="ipoint-head">Configuration and innovation depth.</div>
+            <div class="ipoint-body">Capability runs from textile and sewn-goods production through innovation and prototyping, kitting, configuration, provisioning, and federal fulfillment. We add measurable value to partner production flows without competing on end-product engineering.</div>
+          </div>
+        </div>
+        <div class="ipoint">
+          <div class="ipoint-num">04</div>
+          <div>
+            <div class="ipoint-head">Transparent disclosed-margin partnerships.</div>
+            <div class="ipoint-body">Our partner model is transparent on margin structure from day one. No hidden commercial layers. This is a compliance-supportive posture built to simplify a partner's path to federal revenue, not add process friction.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="campus-cards">
+        <div class="campus-card">
+          <div class="campus-tag">Dallas Campus</div>
+          <div class="campus-name">Farmers Branch, Texas</div>
+          <div class="campus-addr">
+            <strong>235,000 sq ft</strong> &bull; 13.5-acre campus<br>
+            1801 Valley View Lane, Farmers Branch, TX 75234<br>
+            $40M investment, 9 miles from DFW International Airport<br>
+            Textile manufacturing, configuration, federal fulfillment
+          </div>
+        </div>
+        <div class="campus-card">
+          <div class="campus-tag">Wichita Campus</div>
+          <div class="campus-name">Wichita, Kansas</div>
+          <div class="campus-addr">
+            <strong>175,000 sq ft</strong><br>
+            2301 S Water Street, Wichita, KS 67213<br>
+            Manufacturing, innovation lab, print services<br>
+            Foundation and donor programming operations
+          </div>
+        </div>
+        <div class="campus-card">
+          <div class="campus-tag">Federal Lane</div>
+          <div class="campus-name">DLA AbilityOne TLS</div>
+          <div class="campus-addr">
+            <strong>Base Supply Center</strong> &bull; Tailored Logistics Support<br>
+            Direct acquisition pathway into DoD and federal buyers<br>
+            Alternate compliant channel to GSA MAS<br>
+            NIB participating nonprofit agency
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CAPABILITIES (validated 4-card set) ========== -->
+<section class="capabilities" id="capabilities">
+  <div class="section-inner">
+    <div class="section-eyebrow">Capabilities Under One Roof</div>
+    <h2>Four core capabilities, <em>vertically integrated.</em></h2>
+    <p class="section-sub">Every capability listed here is backed by operational infrastructure, documented past performance, and skilled labor capacity at our Dallas and Wichita campuses. Underutilized equipment, 50,750 sq ft of undeveloped space, and second and third shift capability provide real scale headroom for partner ramp.</p>
+
+    <div class="cap-grid">
+      <div class="cap-card featured">
+        <div class="cap-n">01 &bull; Core Competency</div>
+        <h3>Textile &amp; Sewn-Goods Manufacturing</h3>
+        <p>High-mix technical textile production with federal-grade compliance. Safety apparel, uniforms, FR/AR clothing, tactical and technical garments. Automated and manual cutting, specialty materials, reflective trim, full sizing range including S to 8X. Capacity for both custom and recurring production runs.</p>
+        <ul class="cap-detail-list">
+          <li>Berry and TAA compliant supply chain</li>
+          <li>DCMA Alternate Release Program authorization</li>
+          <li>ISO 9001:2015 certified quality system</li>
+          <li>Federal and defense production heritage</li>
+        </ul>
+        <div class="cap-tag-row">
+          <span class="cap-tag">Berry</span>
+          <span class="cap-tag">TAA</span>
+          <span class="cap-tag">DCMA</span>
+          <span class="cap-tag">ISO 9001</span>
+        </div>
+      </div>
+
+      <div class="cap-card">
+        <div class="cap-n">02</div>
+        <h3>Innovation &amp; Prototyping Laboratory</h3>
+        <p>End-to-end prototyping capability with secure collaboration. Digital pattern design, smart textile integration (RFID, embedded sensors, e-textiles), additive manufacturing, and manufacturability assessments.</p>
+      </div>
+
+      <div class="cap-card">
+        <div class="cap-n">03</div>
+        <h3>Kitting, Assembly &amp; Fulfillment</h3>
+        <p>Federal-specific configuration including kitting, serialized asset prep, packaging, labeling, and provisioning. Integrated fulfillment capability with direct ship to DoD and federal endpoints.</p>
+      </div>
+
+      <div class="cap-card wide">
+        <div class="cap-n">04</div>
+        <h3>Quality, Compliance &amp; Federal Channel Execution</h3>
+        <p>ISO 9001:2015, DCMA Alternate Release Program authorization (cleared for shipment without prior QAR source inspection), PMO discipline, zero OSHA record. This is the operational spine that makes federal-grade delivery repeatable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEDERAL CHANNEL PROOF (replaces weak acronym band) ========== -->
+<section class="fed-proof" id="federal">
+  <div class="fp-inner">
+    <div class="fp-head-row">
+      <div>
+        <div class="section-eyebrow">Federal Channel Infrastructure</div>
+        <h2 style="margin-bottom: 0;">Not a claim. <em>Actual access.</em></h2>
+      </div>
+      <p class="fp-sub">Envision's federal channel is not a marketing position. It is a set of active credentials, enforceable compliance authorizations, and an operational acquisition lane that our partners can route opportunities through today.</p>
+    </div>
+
+    <div class="fp-grid">
+      <div class="fp-card primary">
+        <div class="fp-tag">DLA Tailored Logistics Support</div>
+        <div class="fp-title">Direct DoD Acquisition Lane</div>
+        <div class="fp-body">Active DLA AbilityOne Base Supply Center and Tailored Logistics Support lane. Buyers submit unfunded requirements, DLA performs scope review and issues vendor RFQ, fair-and-reasonable pricing is established before funding. Alternate compliant path into DoD when GSA Schedule is not the natural fit.</div>
+        <div class="fp-stat">Envision Revenue Participation When Routed Through TLS</div>
+      </div>
+
+      <div class="fp-card">
+        <div class="fp-tag">NIB Affiliation</div>
+        <div class="fp-title">Participating Nonprofit Agency</div>
+        <div class="fp-body">Envision is an NIB-affiliated participating nonprofit agency. Meets the 75% overall direct labor hours requirement under AbilityOne rules, maintaining eligibility for Procurement List product additions under the right product-candidate conditions.</div>
+        <div class="fp-stat">Qualified for AbilityOne Participation</div>
+      </div>
+
+      <div class="fp-card">
+        <div class="fp-tag">Prime Contractor Pull-Through</div>
+        <div class="fp-title">FAR 52.208-9 Advantage</div>
+        <div class="fp-body">Federal contracts containing FAR 52.208-9 require use of AbilityOne products in contract performance. Once a product is on the Procurement List, prime contractors are required to source from the designated AbilityOne source, creating a durable demand floor.</div>
+        <div class="fp-stat">Mandatory-Source Structural Advantage</div>
+      </div>
+
+      <div class="fp-card">
+        <div class="fp-tag">Documented Past Performance</div>
+        <div class="fp-title">Active Federal &amp; Defense Work</div>
+        <div class="fp-body">Active textile and sewn-goods production for federal and defense customers. Innovation lab engagements on soldier-facing and mission-critical systems. IRS federal mailroom BPO operations. Federal storefront and managed print programs running in production today.</div>
+        <div class="fp-stat">Operational Today, Not Aspirational</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PARTNERSHIP MODEL (reworked off 4-column) ========== -->
+<section class="partnership" id="partnership">
+  <div class="section-inner">
+    <div class="section-eyebrow">How We Partner</div>
+    <h2>A structured <em>four-step</em> partnership model.</h2>
+    <p class="section-sub">Every Envision partnership moves through a disciplined sequence. No step is skipped. No partner commits before the commercial structure is transparent and the capability fit is validated.</p>
+
+    <div class="model-flow">
+      <div class="model-step">
+        <div class="ms-left">
+          <div class="ms-num">01</div>
+          <div class="ms-phase">Capability Alignment</div>
+        </div>
+        <div class="ms-mid">
+          <h4>Map the fit before committing.</h4>
+        </div>
+        <div class="ms-right">
+          <p>Review partner product lines and identify where Envision's manufacturing, configuration, innovation lab, or federal channel access adds measurable value. Capability alignment is where both sides decide whether a partnership is worth designing.</p>
+        </div>
+      </div>
+
+      <div class="model-step">
+        <div class="ms-left">
+          <div class="ms-num">02</div>
+          <div class="ms-phase">Channel Routing Design</div>
+        </div>
+        <div class="ms-mid">
+          <h4>Design the route, not just the product.</h4>
+        </div>
+        <div class="ms-right">
+          <p>Define which opportunities route through Envision TLS, which go through partner GSA lanes, and which are best pursued jointly. Buyer-preference led, not channel-preference led. We do not force TLS where GSA is already converting.</p>
+        </div>
+      </div>
+
+      <div class="model-step">
+        <div class="ms-left">
+          <div class="ms-num">03</div>
+          <div class="ms-phase">Workshare Structure</div>
+        </div>
+        <div class="ms-mid">
+          <h4>Formalize labor, OEM, and margin.</h4>
+        </div>
+        <div class="ms-right">
+          <p>Formalize Envision's labor content, OEM or license relationship, and pricing structure. Transparent disclosed-margin model throughout. Every commercial layer is visible to the partner before execution begins.</p>
+        </div>
+      </div>
+
+      <div class="model-step">
+        <div class="ms-left">
+          <div class="ms-num">04</div>
+          <div class="ms-phase">Execution &amp; Scale</div>
+        </div>
+        <div class="ms-mid">
+          <h4>Pilot, retrofit, repeat. Scale proven plays.</h4>
+        </div>
+        <div class="ms-right">
+          <p>Execute, measure, iterate. Evaluate long-horizon opportunities like AbilityOne Procurement List pathway only after demand is proven, product is standardized, and labor content is meaningful. No moat is forced before the market earns it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STRATEGIC BREAK ========== -->
+<div class="strategic-break" id="strategy">
+  <div class="sb-inner">
+    <div class="sb-label">Strategic Breakdown</div>
+    <h2 class="sb-head">The joint opportunity, <em>in detail.</em></h2>
+    <p class="sb-sub">The remainder of this brief outlines a proposed collaborative revenue strategy, channel routing framework, multi-phase commercialization pipeline, and a ranked federal pursuit map. Contents are working draft and confidential to the partner review.</p>
+  </div>
+</div>
+
+<!-- ========== AKUA WEDGE ========== -->
+<section class="wedge">
+  <div class="section-inner">
+    <div class="wedge-grid">
+      <div>
+        <div class="section-eyebrow">The Wedge</div>
+        <h2>AKUA is the <em>fastest realistic</em> near-term revenue line.</h2>
+        <p class="section-sub">The Lange portfolio separates naturally into two commercialization tracks: higher-dollar, longer-cycle structures (RedGuard, CoverSix, Armoda) and a lower-dollar, faster-moving smart-asset product family centered on AKUA. AKUA is where near-term revenue gets proven, not where the long-horizon moat is built.</p>
+      </div>
+
+      <div class="wedge-points">
+        <div class="wedge-point">
+          <div class="wp-tag">Immediate wedge</div>
+          <div class="wp-head">Repeat buys, pilots, and retrofits, not one-off sales.</div>
+          <div class="wp-body">AKUA supports pilot deployments, small fleet fieldings, and retrofit programs. This is a repeatable product dynamic, not a bespoke engineering effort. The right channel activity here is commercial discipline, not invention.</div>
+        </div>
+        <div class="wedge-point">
+          <div class="wp-tag">Honest channel truth</div>
+          <div class="wp-head">TLS is a useful alternate lane, not a guaranteed sales multiplier.</div>
+          <div class="wp-body">TLS creates incremental revenue only when it reaches buyers who were not already converting through CoverSix's GSA MAS, or when Envision materially improves access, execution, or buyer confidence. We will not oversell TLS as a demand-creation tool.</div>
+        </div>
+        <div class="wedge-point">
+          <div class="wp-tag">Standardize what already exists</div>
+          <div class="wp-head">Make the existing AKUA upgrade easier to attach.</div>
+          <div class="wp-body">AKUA is already a collaborative upgrade on relevant Lange assets. The scaling work is not product invention. It is standardizing quote language, ordering logic, retrofit packaging, and route-to-contract decisions so the seller does not have to reinvent the story on every deal.</div>
+        </div>
+        <div class="wedge-point">
+          <div class="wp-tag">Long-horizon moat sits later</div>
+          <div class="wp-head">The AbilityOne Procurement List pathway is phase 5, not phase 1.</div>
+          <div class="wp-body">The durable federal advantage comes from eventual AbilityOne product-addition for a standardized smart-asset kit. That requires proven demand, defined product, meaningful Envision labor content, and partner alignment. It is a 12 to 24 month disciplined effort, not a near-term sales tool.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ROUTING ========== -->
+<section class="routing">
+  <div class="section-inner">
+    <div class="section-eyebrow">Channel Routing</div>
+    <h2>Use the channel that <em>materially improves</em> buyer conversion.</h2>
+    <p class="section-sub">TLS and GSA MAS are not substitutes. Each works for different buyers and different acquisition profiles. Routing decisions should be made on buyer preference and execution fit, not on a generic assumption that one lane is always stronger.</p>
+
+    <div class="routing-compare">
+      <div class="rc-col primary">
+        <div class="rc-lane">Envision TLS</div>
+        <div class="rc-title">DLA-managed acquisition lane</div>
+        <ul class="rc-list">
+          <li><strong>Buyer experience</strong>DLA-managed scope review, vendor RFQ, fair-and-reasonable pricing review before funding submission.</li>
+          <li><strong>Best buyer fit</strong>Buyers who prefer DLA in the middle of the transaction, or who are more comfortable with DoD-style ordering.</li>
+          <li><strong>Speed expectation</strong>Not automatically faster than GSA. Can be slower due to additional gate steps. Value is in buyer confidence and execution lift.</li>
+          <li><strong>Envision role</strong>Direct revenue participation when the buy routes through TLS. Opens buyers and use cases not already converting through GSA.</li>
+        </ul>
+      </div>
+
+      <div class="rc-col secondary">
+        <div class="rc-lane">CoverSix GSA MAS</div>
+        <div class="rc-title">Direct schedule ordering lane</div>
+        <ul class="rc-list">
+          <li><strong>Buyer experience</strong>Direct ordering under existing GSA Schedule workflow. Familiar, well-understood acquisition path.</li>
+          <li><strong>Best buyer fit</strong>Buyers already comfortable with GSA Schedule tools and direct order processes. Repetitive demand suited for a BPA.</li>
+          <li><strong>Speed expectation</strong>Often faster for ready buyers. Streamlined when demand is predictable and pricing is already agreed.</li>
+          <li><strong>Envision role</strong>Indirect value through supporting collaboration. Core sales lane controlled directly by CoverSix.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="route-rules">
+      <div class="rr-head">Routing Decision Rules</div>
+      <div class="rr-grid">
+        <div class="rr-item">
+          <div class="rr-chip tls">Use TLS first</div>
+          <div class="rr-text">DoD buyer prefers DLA-managed scope review before funding; requirement is in-scope; Envision relationship materially helps convert or process the buy.</div>
+        </div>
+        <div class="rr-item">
+          <div class="rr-chip gsa">Use GSA first</div>
+          <div class="rr-text">Buyer already prefers GSA Schedule; requirement is straightforward on CoverSix's MAS offering; repetitive direct orders or a BPA make sense.</div>
+        </div>
+        <div class="rr-item">
+          <div class="rr-chip both">Run both</div>
+          <div class="rr-text">Early qualification phase when buyer preference is not yet known; strategic account where the fastest compliant lane should win.</div>
+        </div>
+        <div class="rr-item">
+          <div class="rr-chip gsa">Do not force TLS</div>
+          <div class="rr-text">When the same buyer could already buy quickly via GSA MAS and Envision does not bring different access or execution value.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PHASE TIMELINE ========== -->
+<section class="phases">
+  <div class="section-inner">
+    <div class="section-eyebrow">Revenue Pipeline</div>
+    <h2>A <em>five-phase</em> collaborative pipeline, honestly sequenced.</h2>
+    <p class="section-sub">Near-term revenue is real and achievable. The durable moat comes later. Treating the long-horizon AbilityOne pathway as a near-term sales tool creates bad incentives and weak positioning.</p>
+
+    <div class="phase-rail">
+      <div class="phase-card near">
+        <div class="phase-n">Phase 01 &bull; Near-term</div>
+        <div class="phase-head">Prove the wedge</div>
+        <div class="phase-horizon">0 to 6 months</div>
+        <div class="phase-body">Identify target defense buyers and partner-led opportunities where AKUA can be sold now through the most practical route. Confirm TLS-in-scope use where available. Use GSA MAS where direct schedule buying is easier.</div>
+        <div class="phase-out">Outcome: AKUA pilots, small-batch orders, clean route-to-contract decisions.</div>
+      </div>
+      <div class="phase-card next">
+        <div class="phase-n">Phase 02</div>
+        <div class="phase-head">Pilot, retrofit, repeat</div>
+        <div class="phase-horizon">3 to 12 months</div>
+        <div class="phase-body">Convert the lower-dollar device into repeatable deployments. Sell to existing and prospective users as pilots, retrofits, replacements, and small fleet fieldings. Emphasize tracking, tamper awareness, and in-transit accountability.</div>
+        <div class="phase-out">Outcome: Repeat orders and growing installed base.</div>
+      </div>
+      <div class="phase-card mid">
+        <div class="phase-n">Phase 03</div>
+        <div class="phase-head">Scale existing AKUA attach</div>
+        <div class="phase-horizon">6 to 18 months</div>
+        <div class="phase-body">Standardize quote language, ordering logic, retrofit packages, option descriptions, and route-to-contract decisions for the AKUA upgrade already sold on Lange assets. Commercial scaling of what already works.</div>
+        <div class="phase-out">Outcome: Higher attach rate. More retrofitted assets.</div>
+      </div>
+      <div class="phase-card far">
+        <div class="phase-n">Phase 04</div>
+        <div class="phase-head">Expand workshare</div>
+        <div class="phase-horizon">12 to 24 months</div>
+        <div class="phase-body">Add meaningful Envision labor in final assembly, federal-specific configuration, provisioning, packaging, labeling, serialized asset prep, installation kits, and repeatable production touches that are real and auditable.</div>
+        <div class="phase-out">Outcome: Higher gross-margin participation. Foundation for long-horizon strategy.</div>
+      </div>
+      <div class="phase-card moat">
+        <div class="phase-n">Phase 05 &bull; Long-horizon</div>
+        <div class="phase-head">Evaluate AbilityOne PL pathway</div>
+        <div class="phase-horizon">18 to 24+ months</div>
+        <div class="phase-body">Pursue a federal-specific, repeatable product candidate only after demand, standardized definition, and labor content are proven. Focus on standardizable smart-asset kits or configured subassemblies, not full custom hardened structures.</div>
+        <div class="phase-out">Outcome: Potential NSN designation, mandatory-source benefits, recurring federal demand moat.</div>
+      </div>
+    </div>
+
+    <div class="phase-note">
+      <strong>Why the last phase is the last phase.</strong> The AbilityOne Procurement List is not a quick-turn commercialization tool. Suitability, NPA qualification, labor content, fair-market-price development, Federal Register notice, and Commission approval all take time. The right candidate is a standardized AKUA-enabled smart-asset kit, not a fully custom structure. Forcing a PL addition before the product is standardized, demand is visible, and Envision labor content is meaningful creates a weaker case, not a faster path.
+    </div>
+  </div>
+</section>
+
+<!-- ========== CAPABILITY-TO-FUNDING ALIGNMENT (repositioned EARLIER for weight) ========== -->
+<section class="cap-align">
+  <div class="section-inner">
+    <div class="section-eyebrow">Capability to Funding Alignment</div>
+    <h2>Eight capability lanes, <em>mapped to real federal paths.</em></h2>
+    <p class="section-sub">Every RedGuard and CoverSix capability lane below has verified past-performance evidence and at least one realistic federal acquisition or R&amp;D pathway attached. The ranked pursuit map that follows is how we execute against these lanes in the near term.</p>
+
+    <div class="cb-grid">
+      <div class="cb-item featured">
+        <div class="cb-lane-tag">Highest Near-Term Fit</div>
+        <div class="cb-lane">Protective Structures &amp; Access Control</div>
+        <div class="cb-agencies">ERDC Military Engineering &bull; USSOCOM &bull; DOS OBO &bull; Air Force base operations</div>
+        <div class="cb-trl">TRL 6-9 &bull; MRL 6-9</div>
+      </div>
+      <div class="cb-item featured">
+        <div class="cb-lane-tag">Direct Acquisition Ready</div>
+        <div class="cb-lane">Ammunition, Armory &amp; Explosive Support</div>
+        <div class="cb-agencies">Army depots &bull; Air Force Security Forces &bull; ERDC &bull; direct acquisition pathways</div>
+        <div class="cb-trl">TRL 8-9 &bull; MRL 8-9</div>
+      </div>
+      <div class="cb-item">
+        <div class="cb-lane-tag">Differentiator</div>
+        <div class="cb-lane">SCIF &amp; Secure Communications</div>
+        <div class="cb-agencies">ERDC CERL &bull; SOCOM BAA/CSO &bull; Air Force / Space Force mission support</div>
+        <div class="cb-trl">TRL 5-9 &bull; MRL 5-9</div>
+      </div>
+      <div class="cb-item">
+        <div class="cb-lane-tag">Range Modernization</div>
+        <div class="cb-lane">Range &amp; Training Infrastructure</div>
+        <div class="cb-agencies">ERDC GSL / CERL &bull; Marine Corps range systems &bull; Air Force installations</div>
+        <div class="cb-trl">TRL 5-9 &bull; MRL 5-9</div>
+      </div>
+      <div class="cb-item">
+        <div class="cb-lane-tag">Homeland Security</div>
+        <div class="cb-lane">Labs, Medical &amp; Hazmat</div>
+        <div class="cb-agencies">DHS S&amp;T LRBAA &bull; ERDC CERL &bull; CBP / homeland security buyers</div>
+        <div class="cb-trl">TRL 5-9 &bull; MRL 5-9</div>
+      </div>
+      <div class="cb-item">
+        <div class="cb-lane-tag">Energy Resilience</div>
+        <div class="cb-lane">Energy-Resilient Technical Buildings</div>
+        <div class="cb-agencies">ERDC CERL Installation Energy &bull; Civil Works CSO &bull; DOE teaming paths</div>
+        <div class="cb-trl">TRL 5-9 &bull; MRL 5-9</div>
+      </div>
+      <div class="cb-item">
+        <div class="cb-lane-tag">Expeditionary</div>
+        <div class="cb-lane">Contingency Basing &amp; Austere Accommodation</div>
+        <div class="cb-agencies">SOCOM &bull; State OBO &bull; ERDC CERL &bull; contingency basing programs</div>
+        <div class="cb-trl">TRL 6-9 &bull; MRL 6-9</div>
+      </div>
+      <div class="cb-item">
+        <div class="cb-lane-tag">Niche but Proven</div>
+        <div class="cb-lane">Space Launch &amp; Mission Support</div>
+        <div class="cb-agencies">Space Force launch enterprise &bull; ERDC &bull; SpaceWERX-adjacent teaming</div>
+        <div class="cb-trl">TRL 6-9 &bull; MRL 6-9</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PURSUIT MAP ========== -->
+<section class="pursuits">
+  <div class="section-inner">
+    <div class="section-eyebrow">Ranked Federal Pursuits</div>
+    <h2>Ten open pursuits, <em>scored honestly.</em></h2>
+    <p class="section-sub">Weighted score averages TRL fit, MRL fit, timing and access, and competitive realism. Tap any row to see the recommended approach and timing. Filter by disposition to see only the pursuits relevant to your decision.</p>
+
+    <div class="p-filter-row">
+      <button class="p-filter active" data-filter="all">All Pursuits</button>
+      <button class="p-filter" data-filter="pursue">Pursue Now</button>
+      <button class="p-filter" data-filter="team">Shape / Team</button>
+      <button class="p-filter" data-filter="monitor">Monitor</button>
+    </div>
+
+    <div class="pursuit-list">
+
+      <div class="pursuit-row pursue" data-type="pursue">
+        <div class="p-rank">01<span>Rank</span></div>
+        <div>
+          <div class="p-name">ERDC CERL Commercial Solutions Opening</div>
+          <div class="p-agency">Construction Engineering Research Laboratory &bull; ERDCWERX</div>
+        </div>
+        <div class="p-col-hide-tablet"><div class="p-col-label">Vehicle</div><div class="p-col-val">Commercial Solutions Opening</div></div>
+        <div><div class="p-col-label">Timing</div><div class="p-col-val">Through 2026-10-30</div></div>
+        <div><div class="p-col-label">Score</div><div class="p-score">4.75</div></div>
+        <div><span class="p-chip pursue">Pursue Now</span></div>
+        <div class="p-expand">&#9660;</div>
+      </div>
+      <div class="pursuit-detail">
+        <div class="pd-head">Recommended Approach</div>
+        <div class="pd-body">Submit two to three tightly framed solution briefs under protected infrastructure and installation-support themes. Lead with CoverSix's verified protected-structure, SCIF, and hardened-control-building past performance. Submit concise solution briefs, not a full capabilities deck.</div>
+        <div class="pd-head">Why It Fits</div>
+        <div class="pd-body">Best open match to the new capability documentation because CoverSix already has proven protected-infrastructure delivery. Directly matches ERDC CERL's construction engineering and operational infrastructure mandate.</div>
+        <div class="pd-timing">Submissions receive full consideration through 2026-10-30</div>
+      </div>
+
+      <div class="pursuit-row pursue" data-type="pursue">
+        <div class="p-rank">02<span>Rank</span></div>
+        <div>
+          <div class="p-name">ERDC BOTAA &mdash; Military Engineering</div>
+          <div class="p-agency">Broad Other Transaction Authority Announcement &bull; ERDCWERX</div>
+        </div>
+        <div class="p-col-hide-tablet"><div class="p-col-label">Vehicle</div><div class="p-col-val">OTA Prototype White Paper</div></div>
+        <div><div class="p-col-label">Timing</div><div class="p-col-val">Rolling</div></div>
+        <div><div class="p-col-label">Score</div><div class="p-score">4.50</div></div>
+        <div><span class="p-chip pursue">Pursue Now</span></div>
+        <div class="p-expand">&#9660;</div>
+      </div>
+      <div class="pursuit-detail">
+        <div class="pd-head">Recommended Approach</div>
+        <div class="pd-body">Lead with a white paper under Protective Structures and Systems or Infrastructure themes. Focus on hardened, blast-resistant, ballistic-protection, or survivability concepts with a clear prototype-worthy angle. OT pathways can move faster than traditional acquisition when the concept is prototype-ready.</div>
+        <div class="pd-head">Why It Fits</div>
+        <div class="pd-body">Best rapid-prototyping route for hardened, blast, ballistic, and survivability product lines. ERDC BOTAA is the right vehicle for prototype work where the concept still needs engineering refinement before a direct acquisition path opens.</div>
+        <div class="pd-timing">Rolling submissions &bull; no deadline pressure</div>
+      </div>
+
+      <div class="pursuit-row pursue" data-type="pursue">
+        <div class="p-rank">02<span>Rank</span></div>
+        <div>
+          <div class="p-name">Bluegrass Army Depot Small Arms Ammunition Magazine</div>
+          <div class="p-agency">Army &bull; Bluegrass Army Depot</div>
+        </div>
+        <div class="p-col-hide-tablet"><div class="p-col-label">Vehicle</div><div class="p-col-val">Direct Acquisition</div></div>
+        <div><div class="p-col-label">Timing</div><div class="p-col-val">Solicitation 2026-04-21</div></div>
+        <div><div class="p-col-label">Score</div><div class="p-score">4.50</div></div>
+        <div><span class="p-chip pursue">Pursue Now</span></div>
+        <div class="p-expand">&#9660;</div>
+      </div>
+      <div class="pursuit-detail">
+        <div class="pd-head">Recommended Approach</div>
+        <div class="pd-body">Pull the solicitation package immediately on release. Map current ammunition-magazine and field-armory past performance to the exact Army requirements. Respond as a qualified direct-acquisition supplier with proven, in-production hardware.</div>
+        <div class="pd-head">Why It Fits</div>
+        <div class="pd-body">The capability documentation proves exact-fit ammunition storage and armory experience, making this the clearest near-term direct-acquisition play. Schriever AFB ammunition storage magazine and Aviano portable field armory are directly relevant past-performance anchors.</div>
+        <div class="pd-timing">Anticipated solicitation release 2026-04-21 &bull; verify live timing in SAM</div>
+      </div>
+
+      <div class="pursuit-row pursue" data-type="pursue">
+        <div class="p-rank">04<span>Rank</span></div>
+        <div>
+          <div class="p-name">CCSFS UL Level 3 Ballistic Welded Steel Booths</div>
+          <div class="p-agency">Air Force &bull; AFLCMC Hanscom PZI</div>
+        </div>
+        <div class="p-col-hide-tablet"><div class="p-col-label">Vehicle</div><div class="p-col-val">Direct Acquisition / Sources Sought</div></div>
+        <div><div class="p-col-label">Timing</div><div class="p-col-val">Active as of 2026-03-30</div></div>
+        <div><div class="p-col-label">Score</div><div class="p-score">4.25</div></div>
+        <div><span class="p-chip pursue">Pursue Now</span></div>
+        <div class="p-expand">&#9660;</div>
+      </div>
+      <div class="pursuit-detail">
+        <div class="pd-head">Recommended Approach</div>
+        <div class="pd-body">Respond as a qualified small-business ballistic booth and guard-shack supplier. Emphasize direct NAICS and PSC alignment with CoverSix's guard-shack product line. Verify the close date in SAM before finalizing the response.</div>
+        <div class="pd-head">Why It Fits</div>
+        <div class="pd-body">Direct match to the guard shack and ballistic booth capability. Nellis AFB Visitor Control Center and Djibouti guard-shack past performance are directly relevant. Same NAICS and PSC codes as CoverSix's existing federal footprint.</div>
+        <div class="pd-timing">Verify current close date in SAM.gov</div>
+      </div>
+
+      <div class="pursuit-row team" data-type="team">
+        <div class="p-rank">05<span>Rank</span></div>
+        <div>
+          <div class="p-name">ERDC Broad Agency Announcement (W912HZ26S0001)</div>
+          <div class="p-agency">Engineer Research and Development Center</div>
+        </div>
+        <div class="p-col-hide-tablet"><div class="p-col-label">Vehicle</div><div class="p-col-val">Broad Agency Announcement</div></div>
+        <div><div class="p-col-label">Timing</div><div class="p-col-val">Rolling</div></div>
+        <div><div class="p-col-label">Score</div><div class="p-score">4.00</div></div>
+        <div><span class="p-chip team">Shape / Team</span></div>
+        <div class="p-expand">&#9660;</div>
+      </div>
+      <div class="pursuit-detail">
+        <div class="pd-head">Recommended Approach</div>
+        <div class="pd-body">Use for earlier-stage applied R&amp;D where the concept is still being shaped. Good path when the team wants R&amp;D runway before a product-specific prototype or direct acquisition effort.</div>
+        <div class="pd-head">Why It Fits</div>
+        <div class="pd-body">Strong fit for pre-prototype technology work that benefits from ERDC research collaboration. Less time-critical than the CSO or direct acquisition lanes, but useful for building ERDC relationships.</div>
+        <div class="pd-timing">Rolling &bull; use when concept is still R&amp;D-stage</div>
+      </div>
+
+      <div class="pursuit-row team" data-type="team">
+        <div class="p-rank">06<span>Rank</span></div>
+        <div>
+          <div class="p-name">USSOCOM BAA / CSO / RFI Gateway</div>
+          <div class="p-agency">USSOCOM SOF AT&amp;L</div>
+        </div>
+        <div class="p-col-hide-tablet"><div class="p-col-label">Vehicle</div><div class="p-col-val">BAA / CSO / RFI</div></div>
+        <div><div class="p-col-label">Timing</div><div class="p-col-val">Rolling</div></div>
+        <div><div class="p-col-label">Score</div><div class="p-score">3.75</div></div>
+        <div><span class="p-chip team">Shape / Team</span></div>
+        <div class="p-expand">&#9660;</div>
+      </div>
+      <div class="pursuit-detail">
+        <div class="pd-head">Recommended Approach</div>
+        <div class="pd-body">Do not submit a generic corporate capabilities response. Submit against a defined SOF problem set with a concept tuned to austere, deployable, mission-support infrastructure. Problem-led, not brochure-led.</div>
+        <div class="pd-head">Why It Fits</div>
+        <div class="pd-body">Realistic because CoverSix's capability documentation now supports credible deployable, protected, mission-support discussion. SOF is the right customer for protected austere-environment structures.</div>
+        <div class="pd-timing">Rolling &bull; submit against specific announced problems only</div>
+      </div>
+
+      <div class="pursuit-row team" data-type="team">
+        <div class="p-rank">07<span>Rank</span></div>
+        <div>
+          <div class="p-name">ERDC Civil Works CSO</div>
+          <div class="p-agency">Engineer Research and Development Center &bull; ERDCWERX</div>
+        </div>
+        <div class="p-col-hide-tablet"><div class="p-col-label">Vehicle</div><div class="p-col-val">Commercial Solutions Opening</div></div>
+        <div><div class="p-col-label">Timing</div><div class="p-col-val">Through 2026-12-31</div></div>
+        <div><div class="p-col-label">Score</div><div class="p-score">3.50</div></div>
+        <div><span class="p-chip team">Shape / Team</span></div>
+        <div class="p-expand">&#9660;</div>
+      </div>
+      <div class="pursuit-detail">
+        <div class="pd-head">Recommended Approach</div>
+        <div class="pd-body">Pursue only when framing hardened control buildings, eHouse, or resilience-architecture concepts to a civil-works mission context. Less direct than CERL but real fit for energy-resilient and protected-infrastructure plays.</div>
+        <div class="pd-head">Why It Fits</div>
+        <div class="pd-body">Fit is real but more indirect than CERL because the buyer is broader civil-works focused. Best used as a secondary CSO path when the concept can be reframed to a civil-works mission.</div>
+        <div class="pd-timing">Submissions receive full consideration through 2026-12-31</div>
+      </div>
+
+      <div class="pursuit-row monitor" data-type="monitor">
+        <div class="p-rank">08<span>Rank</span></div>
+        <div>
+          <div class="p-name">USSOCOM Technical Experimentation</div>
+          <div class="p-agency">USSOCOM SOF AT&amp;L</div>
+        </div>
+        <div class="p-col-hide-tablet"><div class="p-col-label">Vehicle</div><div class="p-col-val">Experimentation Event</div></div>
+        <div><div class="p-col-label">Timing</div><div class="p-col-val">TE 26-2 &bull; Apr 13-17</div></div>
+        <div><div class="p-col-label">Score</div><div class="p-score">3.25</div></div>
+        <div><span class="p-chip monitor">Monitor</span></div>
+        <div class="p-expand">&#9660;</div>
+      </div>
+      <div class="pursuit-detail">
+        <div class="pd-head">Recommended Approach</div>
+        <div class="pd-body">Use only when a specific concept at TRL 3+ can be demonstrated to SOF operators and technologists. Not a marketing event and not an acquisition vehicle. Useful for early validation of a protected expeditionary infrastructure concept before a larger proposal.</div>
+        <div class="pd-head">Why It Fits</div>
+        <div class="pd-body">Best when the team wants to test whether a concept resonates with SOF end users before committing to a full BAA or CSO response. Low-commitment, high-signal.</div>
+        <div class="pd-timing">Rapid Experimentation 26 &bull; 2026-06-10 to 2026-06-13</div>
+      </div>
+
+      <div class="pursuit-row monitor" data-type="monitor">
+        <div class="p-rank">09<span>Rank</span></div>
+        <div>
+          <div class="p-name">ERDC CRREL CSO</div>
+          <div class="p-agency">Cold Regions Research and Engineering Laboratory</div>
+        </div>
+        <div class="p-col-hide-tablet"><div class="p-col-label">Vehicle</div><div class="p-col-val">Commercial Solutions Opening</div></div>
+        <div><div class="p-col-label">Timing</div><div class="p-col-val">Through 2026-12-31</div></div>
+        <div><div class="p-col-label">Score</div><div class="p-score">3.25</div></div>
+        <div><span class="p-chip monitor">Monitor</span></div>
+        <div class="p-expand">&#9660;</div>
+      </div>
+      <div class="pursuit-detail">
+        <div class="pd-head">Recommended Approach</div>
+        <div class="pd-body">Use when the concept is framed for cold, austere, or remote-region survivability. CoverSix structures can be adapted to harsh environments, but the cold-regions angle needs specific product framing to be competitive.</div>
+        <div class="pd-head">Why It Fits</div>
+        <div class="pd-body">Worth keeping live because hardened structures can serve cold and austere environments. Secondary to CERL and BOTAA, but credible if a cold-regions concept emerges.</div>
+        <div class="pd-timing">Submissions receive full consideration through 2026-12-31</div>
+      </div>
+
+      <div class="pursuit-row monitor" data-type="monitor">
+        <div class="p-rank">10<span>Rank</span></div>
+        <div>
+          <div class="p-name">Worldwide Forced-Entry / Ballistic-Resistant IDIQ</div>
+          <div class="p-agency">Department of State &bull; OBO (teaming path)</div>
+        </div>
+        <div class="p-col-hide-tablet"><div class="p-col-label">Vehicle</div><div class="p-col-val">Direct Acquisition / IDIQ</div></div>
+        <div><div class="p-col-label">Timing</div><div class="p-col-val">Presolicitation</div></div>
+        <div><div class="p-col-label">Score</div><div class="p-score">3.25</div></div>
+        <div><span class="p-chip monitor">Monitor</span></div>
+        <div class="p-expand">&#9660;</div>
+      </div>
+      <div class="pursuit-detail">
+        <div class="pd-head">Recommended Approach</div>
+        <div class="pd-body">Treat as a teaming target rather than a solo-prime target. Real DOS / OBO / HATS / embassy-protection pedigree exists, but competitive realism for sole-prime is low without a strong teammate.</div>
+        <div class="pd-head">Why It Fits</div>
+        <div class="pd-body">Strong capability fit through HATS and embassy work, but contracting complexity makes teaming the right posture. Worth monitoring for partnership opportunities with established OBO primes.</div>
+        <div class="pd-timing">Verify live timing in SAM.gov</div>
+      </div>
+
+    </div>
+
+    <div class="pursuits-legend">
+      <div><strong>Pursue Now</strong> &bull; Highest-priority capture efforts for immediate action</div>
+      <div><strong>Shape / Team</strong> &bull; Real fit, but requires shaping or partner leverage</div>
+      <div><strong>Monitor</strong> &bull; Worth watching, not top-priority resource allocation</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CLOSE ========== -->
+<section class="close-section">
+  <div class="close-inner">
+    <div class="section-eyebrow" style="justify-content: center; display: inline-flex;">What Comes Next</div>
+    <h2 class="close-head">A <em>disciplined path</em> from capability to funded collaboration.</h2>
+    <p class="close-sub">Envision has the manufacturing depth, federal channel access, and workshare capability to execute this strategy at the pace the partnership requires. The next move is a structured scoping conversation focused on Phase 1 targets.</p>
+
+    <div class="close-contacts">
+      <div class="cc-card">
+        <div class="cc-role">Partnership Lead</div>
+        <div class="cc-name">Sebastian Zahr</div>
+        <div class="cc-title">Chief Revenue &amp; Strategy Officer</div>
+        <div class="cc-contact">
+          Sebastian.Zahr@EnvisionUS.com<br>
+          (316) 655-4243
+        </div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-role">Operations &amp; NPD</div>
+        <div class="cc-name">Patrick Tuttle</div>
+        <div class="cc-title">SVP Operations &amp; New Product Development</div>
+        <div class="cc-contact">
+          Patrick.Tuttle@EnvisionUS.com<br>
+          (316) 253-1468
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">Envision<span>.</span></div>
+    <div class="foot-meta">Working Draft &bull; Confidential &bull; Partner Review Only</div>
+  </div>
+</footer>
+
+<script>
+// Pursuit row expand/collapse
+document.querySelectorAll('.pursuit-row').forEach(row => {
+  row.addEventListener('click', () => {
+    row.classList.toggle('open');
+  });
+});
+
+// Filter pursuits with clean state reset
+document.querySelectorAll('.p-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.p-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.pursuit-row').forEach(row => {
+      const detail = row.nextElementSibling;
+      row.classList.remove('open'); // close any open rows when filtering
+      if (filter === 'all' || row.dataset.type === filter) {
+        row.style.display = '';
+        if (detail && detail.classList.contains('pursuit-detail')) {
+          detail.style.display = '';
+        }
+      } else {
+        row.style.display = 'none';
+        if (detail && detail.classList.contains('pursuit-detail')) {
+          detail.style.display = 'none';
+        }
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
