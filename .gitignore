@@ -1,0 +1,26 @@
+# Vercel
+.vercel
+.now
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Node (in case future tooling is added)
+node_modules/
