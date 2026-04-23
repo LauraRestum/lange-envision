@@ -222,22 +222,23 @@ h2 em { font-style: normal; color: var(--green); }
   text-align: center;
 }
 .aag-grid {
-  display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+  row-gap: 2.75rem;
   border-left: 1px solid rgba(255,255,255,0.08);
 }
 .aag-cell {
-  padding: 0 1.75rem;
+  padding: 0 1.25rem;
   border-right: 1px solid rgba(255,255,255,0.08);
 }
 .aag-n {
-  font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 800;
+  font-size: clamp(1.75rem, 2.6vw, 2.4rem); font-weight: 800;
   color: #fff; letter-spacing: -0.03em; line-height: 1;
   margin-bottom: 0.6rem; font-variant-numeric: tabular-nums;
 }
 .aag-n span { color: var(--green); }
-.aag-n.small { font-size: clamp(1.3rem, 2.2vw, 1.8rem); }
+.aag-n.small { font-size: clamp(1.2rem, 2vw, 1.7rem); }
 .aag-l {
-  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em;
   text-transform: uppercase; color: rgba(255,255,255,0.42);
   line-height: 1.5;
 }
@@ -246,8 +247,10 @@ h2 em { font-style: normal; color: var(--green); }
   .aag-grid { grid-template-columns: repeat(3, 1fr); row-gap: 2.5rem; }
   .aag-cell { padding: 0 1.25rem; }
 }
+@media (max-width: 760px) {
+  .aag-grid { grid-template-columns: repeat(2, 1fr); row-gap: 2.25rem; }
+}
 @media (max-width: 640px) {
-  .aag-grid { grid-template-columns: repeat(2, 1fr); }
   .at-a-glance { padding: 3.5rem 1.5rem; }
 }
 
@@ -953,7 +956,7 @@ footer {
   <div class="hero-content">
     <div class="hero-label">Built to Partner</div>
     <h1>U.S. manufacturing,<br>configuration depth,<br>and <em>a federal channel.</em></h1>
-    <p class="hero-sub">Envision is an enterprise-grade American manufacturer with 90+ years of production heritage, Berry and TAA compliant supply chain, and a direct federal acquisition lane through DLA AbilityOne Tailored Logistics Support. We exist to make our partners faster, more compliant, and more competitive in federal markets.</p>
+    <p class="hero-sub">Envision is an enterprise-grade American manufacturer with 90+ years of continuous operating history, Berry and TAA compliant supply chain, and a direct federal acquisition lane through DLA AbilityOne Tailored Logistics Support. We exist to make our partners faster, more compliant, and more competitive in federal markets.</p>
 
     <div class="hero-meta-row">
       <div class="hero-meta-item">
@@ -980,19 +983,16 @@ footer {
     <div class="aag-grid">
       <div class="aag-cell">
         <div class="aag-n">90<span>+</span></div>
-        <div class="aag-l">Years<br>Manufacturing</div>
+        <div class="aag-l">Years of Continuous<br>Operating History</div>
       </div>
+      <!-- TODO(Laura): confirm sq ft number. Campus cards show Dallas 235K + Wichita 175K = 410K, but Summit says 400K total. Likely 410K is truer and Summit rounded. -->
       <div class="aag-cell">
         <div class="aag-n">410<span>K</span></div>
         <div class="aag-l">Sq Ft Across<br>Dallas &amp; Wichita</div>
       </div>
       <div class="aag-cell">
-        <div class="aag-n">447</div>
-        <div class="aag-l">Skilled<br>Employees</div>
-      </div>
-      <div class="aag-cell">
-        <div class="aag-n">$40<span>M</span></div>
-        <div class="aag-l">Recent Facility<br>Investment</div>
+        <div class="aag-n">500<span>+</span></div>
+        <div class="aag-l">Employees Across<br>Production &amp; Services</div>
       </div>
       <div class="aag-cell">
         <div class="aag-n small">Berry<br>&amp; TAA</div>
@@ -1001,6 +1001,26 @@ footer {
       <div class="aag-cell">
         <div class="aag-n small">ISO<br>9001:2015</div>
         <div class="aag-l">Quality Management<br>Certified</div>
+      </div>
+      <div class="aag-cell">
+        <div class="aag-n">$40<span>M</span></div>
+        <div class="aag-l">Dallas Campus<br>Investment</div>
+      </div>
+      <div class="aag-cell">
+        <div class="aag-n">$15<span>M</span></div>
+        <div class="aag-l">Wichita Campus<br>Investment</div>
+      </div>
+      <div class="aag-cell">
+        <div class="aag-n">$265<span>M</span></div>
+        <div class="aag-l">Total<br>Revenue</div>
+      </div>
+      <div class="aag-cell">
+        <div class="aag-n">$132<span>M</span></div>
+        <div class="aag-l">Revenue From Outside Core,<br>Including Federal Contracts</div>
+      </div>
+      <div class="aag-cell">
+        <div class="aag-n">$0</div>
+        <div class="aag-l">Long-Term<br>Debt</div>
       </div>
     </div>
   </div>
